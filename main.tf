@@ -63,7 +63,35 @@
    subnet_id = aws_subnet.publicsubnets.id
  }
 
- ## EC2 Instances
+## EC2 Control Plane
+
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  for_each = toset(["one"])
+
+  name = "cp-${each.key}"
+  ami                    = ami-02f3416038bdb17fb #Ubuntu 22.04
+  #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
+  instance_type          = "t2.micro"
+  key_name               = "us-east-2-lab"
+  monitoring             = true
+  #vpc_security_group_ids = ["sg-12345678"]
+  subnet_id              = aws_subnet.publicsubnets.id
+  user_data              = <<EOF
+ #! /bin/bash
+ sudo apt-get update
+ curl -sfL https://get.k3s.io | sh -
+ cat /var/lib/rancher/k3s/server/node-token
+ EOF
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
+# EC2 Worker Nodes
 
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -71,9 +99,9 @@ module "ec2_instance" {
 
   for_each = toset(["one", "two", "three"])
 
-  name = "instance-${each.key}"
-
-  ami                    = "ami-02d1e544b84bf7502"
+  name = "node-${each.key}"
+  ami                    = ami-02f3416038bdb17fb #Ubuntu 22.04
+  #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
   instance_type          = "t2.micro"
   key_name               = "us-east-2-lab"
   monitoring             = true
