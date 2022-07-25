@@ -77,6 +77,7 @@ module "ec2_k3s_cp" {
   instance_type          = "t2.micro"
   key_name               = "us-east-2-lab"
   monitoring             = true
+  ecs_associate_public_ip_address = "true"
   #vpc_security_group_ids = ["sg-12345678"]
   subnet_id              = aws_subnet.publicsubnets.id
   user_data              = <<EOF
