@@ -63,7 +63,36 @@
    subnet_id = aws_subnet.publicsubnets.id
  }
 
-## EC2 Control Plane
+# Security group for nodes
+
+resource "aws_security_group" "nodes" {
+
+  name    = "k3s nodes Security Group"
+  vpc_id  = aws_vpc.Main.Id
+
+  ingress {
+    description = "ssh"
+    from_port   = "21"
+    to_port  = "21"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]   
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = "0"
+    protocol    = "-1"
+    to_port     = "0"
+  }
+
+  tags {
+
+    name  = "k3s-nodes"
+  }
+
+}
+
+# EC2 Control Plane
 
 module "ec2_k3s_cp" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -78,7 +107,7 @@ module "ec2_k3s_cp" {
   key_name                    = "us-east-2-lab"
   monitoring                  = true
   associate_public_ip_address = true
-  #vpc_security_group_ids     = ["sg-12345678"]
+  vpc_security_group_ids     = [aws_security_group.nodes.id]
   subnet_id                   = aws_subnet.publicsubnets.id
   
   user_data                   = <<EOF
