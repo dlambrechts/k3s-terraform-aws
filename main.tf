@@ -85,9 +85,8 @@ resource "aws_security_group" "nodes" {
     to_port     = "0"
   }
 
-  tags {
-
-    name  = "k3s-nodes"
+     tags = {
+    Name = "k3s-nodes-sg"
   }
 
 }
