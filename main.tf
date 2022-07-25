@@ -72,20 +72,22 @@ module "ec2_k3s_cp" {
   for_each = toset(["one"])
 
   name = "cp-${each.key}"
-  ami                    = "ami-02f3416038bdb17fb" #Ubuntu 22.04
-  #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
-  instance_type          = "t2.micro"
-  key_name               = "us-east-2-lab"
-  monitoring             = true
-  ecs_associate_public_ip_address = "true"
-  #vpc_security_group_ids = ["sg-12345678"]
-  subnet_id              = aws_subnet.publicsubnets.id
-  user_data              = <<EOF
+  ami                         = "ami-02f3416038bdb17fb" #Ubuntu 22.04
+  #ami                        = "ami-02d1e544b84bf7502" # Amazon Linux
+  instance_type               = "t2.micro"
+  key_name                    = "us-east-2-lab"
+  monitoring                  = true
+  associate_public_ip_address = true
+  #vpc_security_group_ids     = ["sg-12345678"]
+  subnet_id                   = aws_subnet.publicsubnets.id
+  
+  user_data                   = <<EOF
  #! /bin/bash
  sudo apt-get update
  curl -sfL https://get.k3s.io | sh -
  cat /var/lib/rancher/k3s/server/node-token
  EOF
+  
   tags = {
     Terraform   = "true"
     Environment = "dev"
