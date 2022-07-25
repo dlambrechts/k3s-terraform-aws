@@ -65,7 +65,7 @@
 
 ## EC2 Control Plane
 
-module "ec2_instance" {
+module "ec2_k3s_cp" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
@@ -93,7 +93,7 @@ module "ec2_instance" {
 
 # EC2 Worker Nodes
 
-module "ec2_instance" {
+module "ec2_k3s_worker" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
