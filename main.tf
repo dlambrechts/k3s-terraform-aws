@@ -72,7 +72,7 @@ module "ec2_k3s_cp" {
   for_each = toset(["one"])
 
   name = "cp-${each.key}"
-  ami                    = ami-02f3416038bdb17fb #Ubuntu 22.04
+  ami                    = "ami-02f3416038bdb17fb" #Ubuntu 22.04
   #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
   instance_type          = "t2.micro"
   key_name               = "us-east-2-lab"
@@ -100,7 +100,7 @@ module "ec2_k3s_worker" {
   for_each = toset(["one", "two", "three"])
 
   name = "node-${each.key}"
-  ami                    = ami-02f3416038bdb17fb #Ubuntu 22.04
+  ami                    = "ami-02f3416038bdb17fb" #Ubuntu 22.04
   #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
   instance_type          = "t2.micro"
   key_name               = "us-east-2-lab"
