@@ -68,7 +68,7 @@
 resource "aws_security_group" "nodes" {
 
   name    = "k3s nodes Security Group"
-  vpc_id  = aws_vpc.Main.Id
+  vpc_id  = aws_vpc.Main.id
 
   ingress {
     description = "ssh"
