@@ -72,8 +72,8 @@ resource "aws_security_group" "nodes" {
 
   ingress {
     description = "ssh"
-    from_port   = "21"
-    to_port  = "21"
+    from_port   = "22"
+    to_port  = "22"
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]   
   }
