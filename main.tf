@@ -16,6 +16,7 @@
  resource "aws_subnet" "publicsubnets" {    # Creating Public Subnets
    vpc_id =  aws_vpc.Main.id
    cidr_block = "${var.public_subnets}"        # CIDR block of public subnets
+   map_public_ip_on_launch = true
  }
 
  #Create a Private Subnet                   # Creating Private Subnets
@@ -105,7 +106,7 @@ module "ec2_k3s_cp" {
   instance_type               = "t2.micro"
   key_name                    = "us-east-2-lab"
   monitoring                  = true
-  associate_public_ip_address = true
+  #associate_public_ip_address = true
   vpc_security_group_ids     = [aws_security_group.nodes.id]
   subnet_id                   = aws_subnet.publicsubnets.id
   
