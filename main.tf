@@ -138,5 +138,5 @@ module "ec2_k3s_cp" {
   tags = {
     Terraform   = "true"
     Environment = "dev"
-  } */
-}
+  } 
+}*/
