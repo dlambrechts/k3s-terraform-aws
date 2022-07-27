@@ -120,7 +120,7 @@ module "ec2_k3s_cp" {
 
 # EC2 Worker Nodes
 
-module "ec2_k3s_worker" {
+/* module "ec2_k3s_worker" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
@@ -138,5 +138,5 @@ module "ec2_k3s_worker" {
   tags = {
     Terraform   = "true"
     Environment = "dev"
-  }
+  } */
 }
