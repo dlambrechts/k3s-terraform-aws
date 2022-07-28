@@ -1,4 +1,4 @@
  #! /bin/bash
- apt-get update -y
+ yum update -y
  curl -sfL https://get.k3s.io | sh -
- cat /var/lib/rancher/k3s/server/node-token
+ cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
