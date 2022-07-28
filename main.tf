@@ -101,8 +101,8 @@ module "ec2_k3s_cp" {
   for_each = toset(["one"])
 
   name = "cp-${each.key}"
-  ami                         = "ami-02f3416038bdb17fb" #Ubuntu 22.04
-  #ami                        = "ami-02d1e544b84bf7502" # Amazon Linux
+  #ami                         = "ami-02f3416038bdb17fb" #Ubuntu 22.04
+  ami                        = "ami-02d1e544b84bf7502" # Amazon Linux 2
   instance_type               = "t2.micro"
   key_name                    = "us-east-2-lab"
   monitoring                  = true
