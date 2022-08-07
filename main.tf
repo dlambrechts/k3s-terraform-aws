@@ -94,7 +94,27 @@ resource "aws_security_group" "nodes" {
 
 # EC2 Cluster Init
 
-module "ec2_k3s_cp" {
+module "ec2_k3s-main" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  name = "Control Plane"
+
+  ami                         = "ami-02d1e544b84bf7502"
+  instance_type               = "t2.micro"
+  key_name                    = "us-east-2-lab"
+  monitoring                  = true
+  vpc_security_group_ids      = [aws_security_group.nodes.id]
+  subnet_id                   = aws_subnet.publicsubnets.id
+  user_data                   = file("k3s-server.sh")
+  tags = {
+    Terraform                 = "true"
+    Environment               = "dev"
+  }
+}
+
+
+/* module "ec2_k3s_cp" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
@@ -115,7 +135,7 @@ module "ec2_k3s_cp" {
     Environment = "dev"
   }
 
-}
+} */
 
 # EC2 Worker Nodes
 
