@@ -92,7 +92,7 @@ resource "aws_security_group" "nodes" {
 
 }
 
-# EC2 Control Plane
+# EC2 Cluster Init
 
 module "ec2_k3s_cp" {
   source  = "terraform-aws-modules/ec2-instance/aws"
@@ -109,13 +109,12 @@ module "ec2_k3s_cp" {
   #associate_public_ip_address = true
   vpc_security_group_ids     = [aws_security_group.nodes.id]
   subnet_id                   = aws_subnet.publicsubnets.id
-  
   user_data                   = file("k3s-server.sh")
-  
   tags = {
     Terraform   = "true"
     Environment = "dev"
   }
+
 }
 
 # EC2 Worker Nodes
