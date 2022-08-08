@@ -94,7 +94,7 @@ resource "aws_security_group" "nodes" {
 
 # EC2 Cluster Init
 
-module "ec2_k3s-main" {
+module "ec2_k3s_main" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
