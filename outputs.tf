@@ -1,6 +1,6 @@
 output "nodes_public_ip" {
   description = "Lista de IP públicas de los nodos"
-  value       = ["${module.ec2_k3s_nodes.public_ip}"]
+  value       = ["${module.ec2_k3s_nodes.*}"]
 }
 
 output "cp_public_ip" {
