@@ -98,7 +98,7 @@ module "ec2_k3s-main" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  name = "Control Plane"
+  name = "control plane"
 
   ami                         = "ami-02d1e544b84bf7502"
   instance_type               = "t2.micro"
@@ -114,13 +114,13 @@ module "ec2_k3s-main" {
 }
 
 
-/* module "ec2_k3s_cp" {
+module "ec2_k3s_nodes" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  for_each = toset(["one"])
+  for_each = toset(["01"])
 
-  name = "cp-${each.key}"
+  name = "nodo-${each.key}"
   #ami                         = "ami-02f3416038bdb17fb" #Ubuntu 22.04
   ami                        = "ami-02d1e544b84bf7502" # Amazon Linux 2
   instance_type               = "t2.micro"
@@ -129,13 +129,13 @@ module "ec2_k3s-main" {
   #associate_public_ip_address = true
   vpc_security_group_ids     = [aws_security_group.nodes.id]
   subnet_id                   = aws_subnet.publicsubnets.id
-  user_data                   = file("k3s-server.sh")
+  user_data                   = file("k3s-node.sh")
   tags = {
     Terraform   = "true"
     Environment = "dev"
   }
 
-} */
+}
 
 # EC2 Worker Nodes
 
