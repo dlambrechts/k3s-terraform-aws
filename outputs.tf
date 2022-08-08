@@ -4,8 +4,8 @@
 } */
 
 output "public_dns" {
-  description = "List of public DNS names assigned to the instances"
-  value       = ["${module.ec2_k3s-main.public_dns}"]
+  description = "Dirección IP pública del Control Plane"
+  value       = ["${module.ec2_k3s-main.public_ip}"]
 }
 
 /* output "instance_id" {
