@@ -8,4 +8,4 @@ cp /etc/rancher/k3s/k3s.yaml /home/ec2-user/.kube/config
 chown ec2-user /home/ec2-user/.kube
 chmod -R 744 /home/ec2-user/.kube
 
-echo "export KUBECONFIG=\"/home/ec2-user/.kube/config\"" >> /home/ec2-user/.bashrc
+echo "export KUBECONFIG=\"/home/ec2-user/.kube/config\"" >> /home/ec2-user/.bashrc  # Esta línea no debería hacer falta
