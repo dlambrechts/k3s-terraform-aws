@@ -1,11 +1,16 @@
-output "nodes_public_ip" {
+/* output "nodes_public_ip" {
   description = "Lista de IP públicas de los nodos"
   value       = ["${module.ec2_k3s_nodes.*}"]
 }
-
+ */
 output "cp_public_ip" {
-  description = "Dirección IP pública del Control Plane"
+  description = "Dirección IP pública del Control Plane Cluster 1"
   value       = ["${module.ec2_k3s_main.public_ip}"]
+}
+
+output "cp_public_ip2" {
+  description = "Dirección IP pública del Control Plane Cluster 2"
+  value       = ["${module.ec2_k3s_main2.public_ip}"]
 }
 
 /* output "instance_id" {
