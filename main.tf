@@ -106,10 +106,10 @@ module "ec2_k3s_main" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  name = "CP-Cluster-1"
+  name = "cp-01"
 
   ami                         = "ami-02d1e544b84bf7502"
-  instance_type               = "t2.micro"
+  instance_type               = "t2.medium"
   key_name                    = "us-east-2-lab"
   monitoring                  = true
   vpc_security_group_ids      = [aws_security_group.nodes.id]
@@ -121,28 +121,9 @@ module "ec2_k3s_main" {
   }
 }
 
-# EC2 Cluster Init
 
-module "ec2_k3s_main2" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
 
-  name = "CP-Cluster-2"
-
-  ami                         = "ami-02d1e544b84bf7502"
-  instance_type               = "t2.micro"
-  key_name                    = "us-east-2-lab"
-  monitoring                  = true
-  vpc_security_group_ids      = [aws_security_group.nodes.id]
-  subnet_id                   = aws_subnet.publicsubnets.id
-  user_data                   = file("k3s-server.sh")
-  tags = {
-    Terraform                 = "true"
-    Environment               = "dev"
-  }
-}
-
-/* module "ec2_k3s_nodes" {
+module "ec2_k3s_nodes" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
@@ -163,7 +144,7 @@ module "ec2_k3s_main2" {
     Environment = "dev"
   }
 
-} */
+}
 
 # EC2 Worker Nodes
 

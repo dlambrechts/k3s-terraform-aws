@@ -8,11 +8,6 @@ output "cp_public_ip" {
   value       = ["${module.ec2_k3s_main.public_ip}"]
 }
 
-output "cp_public_ip2" {
-  description = "Dirección IP pública del Control Plane Cluster 2"
-  value       = ["${module.ec2_k3s_main2.public_ip}"]
-}
-
 /* output "instance_id" {
   description = "EC2 instance ID"
   value       = "${module.ec2_k3s_cp[0]}"
