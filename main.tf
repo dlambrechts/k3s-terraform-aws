@@ -140,7 +140,7 @@ module "ec2_k3s_nodes" {
   monitoring                  = true
   vpc_security_group_ids     = [aws_security_group.nodes.id]
   subnet_id                   = aws_subnet.publicsubnets.id
-  user_data                   = file("k3s-server.sh") # Cambiar
+  user_data                   = file("k3s-node.sh")
   tags = {
     Terraform   = "true"
     Environment = "dev"
