@@ -107,7 +107,7 @@ module "ec2_k3s_main" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  name = "cp-01"
+  name = "west"
 
   ami                         = "ami-02d1e544b84bf7502"
   instance_type               = "t2.medium"
@@ -122,17 +122,34 @@ module "ec2_k3s_main" {
   }
 }
 
-
-
-
-#
-module "ec2_k3s_nodes" {
+module "ec2_k3s_east" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  for_each = toset(["02"])
+  name = "east"
 
-  name = "cp-${each.key}"
+  ami                         = "ami-02d1e544b84bf7502"
+  instance_type               = "t2.medium"
+  key_name                    = "us-east-2-lab"
+  monitoring                  = true
+  vpc_security_group_ids      = [aws_security_group.nodes.id]
+  subnet_id                   = aws_subnet.publicsubnets.id
+  user_data                   = file("k3s-node.sh")
+  tags = {
+    Terraform                 = "true"
+    Environment               = "dev"
+  }
+}
+
+
+#
+/* module "ec2_k3s_nodes" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  for_each = toset(["01"])
+
+  name = "nd-${each.key}"
   #ami                         = "ami-02f3416038bdb17fb" #Ubuntu 22.04
   ami                        = "ami-02d1e544b84bf7502" # Amazon Linux 2
   instance_type               = "t2.medium"
@@ -147,26 +164,4 @@ module "ec2_k3s_nodes" {
   }
 
 }
-
-# EC2 Worker Nodes
-
-/* module "ec2_k3s_worker" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
-
-  for_each = toset(["one", "two", "three"])
-
-  name = "node-${each.key}"
-  ami                    = "ami-02f3416038bdb17fb" #Ubuntu 22.04
-  #ami                    = "ami-02d1e544b84bf7502" # Amazon Linux
-  instance_type          = "t2.micro"
-  key_name               = "us-east-2-lab"
-  monitoring             = true
-  #vpc_security_group_ids = ["sg-12345678"]
-  subnet_id              = aws_subnet.publicsubnets.id
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  } 
-}*/
+ */
