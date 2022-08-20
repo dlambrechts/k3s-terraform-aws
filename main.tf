@@ -125,9 +125,7 @@ module "ec2_k3s_main" {
 module "ec2_k3s_east" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
-
-  name = "east"
-
+  name                        = "east"
   ami                         = "ami-02d1e544b84bf7502"
   instance_type               = "t2.medium"
   key_name                    = "us-east-2-lab"
