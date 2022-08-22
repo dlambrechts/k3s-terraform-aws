@@ -88,6 +88,14 @@ resource "aws_security_group" "nodes" {
     #cidr_blocks = ["10.0.0.128/26"] # Corresponde a la red pública donde se implementa el cluster
   }
 
+    ingress {
+    description = "public internal"
+    from_port   = "0"
+    to_port  = "65535"
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.128/26"] # Corresponde a la red pública donde se implementa el cluster
+  }
+
   egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = "0"
