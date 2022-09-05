@@ -115,8 +115,7 @@ module "ec2_k3s_main" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
-  name = "tokio"
-
+  name                        = "tokio"
   ami                         = "ami-02d1e544b84bf7502"
   instance_type               = "t2.medium"
   key_name                    = "us-east-2-lab"
@@ -130,22 +129,22 @@ module "ec2_k3s_main" {
   }
 }
 
-# module "ec2_k3s_east" {
-#   source  = "terraform-aws-modules/ec2-instance/aws"
-#   version = "~> 3.0"
-#   name                        = "london"
-#   ami                         = "ami-02d1e544b84bf7502"
-#   instance_type               = "t2.medium"
-#   key_name                    = "us-east-2-lab"
-#   monitoring                  = true
-#   vpc_security_group_ids      = [aws_security_group.nodes.id]
-#   subnet_id                   = aws_subnet.publicsubnets.id
-#   user_data                   = file("k3s-node.sh")
-#   tags = {
-#     Terraform                 = "true"
-#     Environment               = "dev"
-#   }
-# }
+module "ec2_k3s_east" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+  name                        = "london"
+  ami                         = "ami-02d1e544b84bf7502"
+  instance_type               = "t2.medium"
+  key_name                    = "us-east-2-lab"
+  monitoring                  = true
+  vpc_security_group_ids      = [aws_security_group.nodes.id]
+  subnet_id                   = aws_subnet.publicsubnets.id
+  user_data                   = file("server.sh")
+  tags = {
+    Terraform                 = "true"
+    Environment               = "dev"
+  }
+}
 
 
 #
