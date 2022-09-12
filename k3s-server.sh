@@ -14,15 +14,15 @@ echo "export KUBECONFIG=\"/home/ec2-user/.kube/config\"" >> /home/ec2-user/.bash
 
 ##### Install HELM from the binary #####
 
-#wget https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz  # Descargar Binario
-#tar -zxvf helm-v3.9.0-linux-amd64.tar.gz                 # Descomprimir
-#mv linux-amd64/helm /usr/local/bin/helm                  # Mover
+wget https://get.helm.sh/helm-v3.9.0-linux-amd64.tar.gz  # Descargar Binario
+tar -zxvf helm-v3.9.0-linux-amd64.tar.gz                 # Descomprimir
+mv linux-amd64/helm /usr/local/bin/helm                  # Mover
 
 
 ##### Install Hazelcast with HELM ######
 
 #helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
 #helm repo update
-
+#helm install my-release -f values.yaml hazelcast/hazelcast-enterprise
 
 ## helm pull hazelcast/hazelcast-enterprise --untar
