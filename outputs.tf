@@ -8,7 +8,7 @@ output "cp_public_ip" {
   value       = ["${module.ec2_k3s_main.public_ip}"]
 }
 
-/* output "instance_id" {
-  description = "EC2 instance ID"
-  value       = "${module.ec2_k3s_cp[0]}"
-} */
+output "workers_ip" {
+  value = values(module.ec2_k3s_workers)[*].public_ip
+}
+
